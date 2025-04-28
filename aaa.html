@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Price and Discount Calculator</title>
+</head>
+<body>
+<script>
+
+// Item Prices
+const mouse_price = 750;
+const keyboard_price = 1500;
+const monitor_price = 12000;
+const motherboard_price = 4000;
+const harddrive_price = 2000;
+const table_price = 1500;
+
+
+// Get user input
+let product = prompt("Enter the Product Name (mouse/keyboard/monitor/motherboard/harddrive/table):").toLowerCase();
+let quantity = parseInt(prompt("Enter the Quantity:"));
+let isStudent = confirm("Are you a student? Click OK for Yes, or Cancel for No.");
+
+
+// Calculate the total price
+let price_per_item = 0;
+if (product === "mouse") price_per_item = mouse_price;
+else if (product === "keyboard") price_per_item = keyboard_price;
+else if (product === "monitor") price_per_item = monitor_price;
+else if (product === "motherboard") price_per_item = motherboard_price;
+else if (product === "harddrive") price_per_item = harddrive_price;
+else if (product === "table") price_per_item = table_price;
+else {
+   alert("Invalid product!");
+   throw new Error("Invalid product selected");
+}
+let total_price = price_per_item * quantity;
+
+
+// Apply product-specific discounts
+let discount = 0;
+if (product === "mouse" && total_price > 1000) {
+   discount = total_price * 0.10;
+} else if (product === "keyboard" && total_price > 2000) {
+   discount = total_price * 0.15;
+} else if (product === "monitor" && total_price > 4000) {
+   discount = total_price * 0.07;
+} else if (product === "motherboard" && total_price > 6000) {
+   discount = total_price * 0.06;
+}
+
+
+// Check for student discount
+if (isStudent) {
+   discount += (total_price - discount) * 0.05;
+}
+
+
+// Apply discount
+let discounted_price = total_price - discount;
+
+
+// Check for tax
+let tax = 0;
+if (discounted_price > 8000) {
+   tax = discounted_price * 0.08;
+}
+let final_price = discounted_price + tax;
+
+
+// Display results in pesos
+document.write("Total Payment: ₱" + total_price.toFixed(2) + "<br>");
+document.write("Discount: ₱" + discount.toFixed(2) + "<br>");
+document.write("Price After Discount: ₱" + discounted_price.toFixed(2) + "<br>");
+document.write("Tax: ₱" + tax.toFixed(2) + "<br>");
+document.write("<b>Final Price: ₱" + final_price.toFixed(2) + "</b>");
+</script>
+</body>
+</html>
